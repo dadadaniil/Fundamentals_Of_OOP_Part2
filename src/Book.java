@@ -1,44 +1,37 @@
 import java.util.ArrayList;
 
 public class Book {
-    static SecondClass secondClass =new SecondClass();
-
-    public static void main(String[] args) {
-        secondClass.library.add(new Book("sdkfjhsfhj","nos","bumaga","rukopis",2000,9,50));
-        secondClass.library.add(new Book("sdkfjhsfhj","Bunin","bumaga","Samizdat",2020,9,50));
-        secondClass.library.add(new Book("sdkfjhsfhj","nos","bumaga","rukopis",1800,9,50));
-        secondClass.library.add(new Book("sdkfjhsfhj","Nenos","bumaga","Samizdat",54,9,50));
-        secondClass.library.add(new Book("sdkfjhsfhj","nos","bumaga","Samizdat",12,9,50));
-       listOfBooks(1800);
-    }
-    String title;
-    String author;
-    String typeOfBinding;
-
-    String publisher;
-
-    int yearOfPublication,pages,price;
+    SecondClass secondClass = new SecondClass();
 
 
-//    PUT THERE TRUE IF YOU WANT LIST OF EXACT AUTHER, FALSE - PUBLISHER
-    static void listOfBooks(String key, boolean authorOrPublisher){
+
+    private String title;
+    private String author;
+    private String typeOfBinding;
+    private String publisher;
+    private int yearOfPublication, pages, price;
+
+
+    //    PUT THERE TRUE IF YOU WANT LIST OF EXACT AUTHER, FALSE - PUBLISHER
+    public void listOfBooks(String key, boolean authorOrPublisher) {
         for (Book book :
                 secondClass.library) {
-            if (book.author.equals(key)&&authorOrPublisher) {
+            if (book.author.equals(key) && authorOrPublisher) {
                 System.out.println(book);
             }
-            if (book.publisher.equals(key)&&!authorOrPublisher) {
+
+            if (book.publisher.equals(key) && !authorOrPublisher) {
                 System.out.println(book);
             }
         }
     }
-    static void listOfBooks(int yearToCompare){
+
+    public void listOfBooks(int yearToCompare) {
         for (Book book :
                 secondClass.library) {
-            if (book.yearOfPublication>yearToCompare) {
+            if (book.yearOfPublication > yearToCompare) {
                 System.out.println(book);
             }
-
         }
     }
 
@@ -121,8 +114,17 @@ public class Book {
         this.price = price;
     }
 
-    static class SecondClass {
+    protected class SecondClass {
         public ArrayList<Book> library = new ArrayList<>();
+        public static void main(String[] args) {
+            Book book = new Book("sdkfjhsfhj", "nos", "bumaga", "rukopis", 2000, 9, 50);
+            book.secondClass.library.add(new Book("sdkfjhsfhj", "nos", "bumaga", "rukopis", 2000, 9, 50));
+            book.secondClass.library.add(new Book("sdkfjhsfhj", "Bunin", "bumaga", "Samizdat", 2020, 9, 50));
+            book.secondClass.library.add(new Book("sdkfjhsfhj", "nos", "bumaga", "rukopis", 1800, 9, 50));
+            book.secondClass.library.add(new Book("sdkfjhsfhj", "Nenos", "bumaga", "Samizdat", 54, 9, 50));
+            book.secondClass.library.add(new Book("sdkfjhsfhj", "nos", "bumaga", "Samizdat", 12, 9, 50));
+            book.listOfBooks(1800);
+        }
     }
 }
 

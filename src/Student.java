@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Student {
-    String initials, surname;
-    int groupNumber, grades;
+    private String initials, surname;
+    private int groupNumber, grades;
 
-    static ArrayList<Student> studentArrayList = new ArrayList<>();
+     private ArrayList<Student> studentArrayList = new ArrayList<>();
 
     public Student(int grades, String surname, String initials, int groupNumber) {
         this.grades = grades;
@@ -14,14 +14,15 @@ public class Student {
     }
 
     public static void main(String[] args) {
-        studentArrayList.add(new Student(9, "Shpak", "KS", 5));
-        studentArrayList.add(new Student(2, "Shpak", "KS", 5));
-        studentArrayList.add(new Student(3, "Shpak", "KS", 5));
-        studentArrayList.add(new Student(10, "Shpak", "KS", 5));
-        studentArrayList.add(new Student(9, "Shpak", "KS", 5));
-        returnStudents();
+        Student student=new Student(1,"e","23",2);
+        student.studentArrayList.add(new Student(9, "Shpak", "KS", 5));
+        student.studentArrayList.add(new Student(2, "Shpak", "KS", 5));
+        student.studentArrayList.add(new Student(3, "Shpak", "KS", 5));
+        student.studentArrayList.add(new Student(10, "Shpak", "KS", 5));
+        student.studentArrayList.add(new Student(9, "Shpak", "KS", 5));
+        student.returnStudents();
     }
-    static void returnStudents(){
+    public void returnStudents(){
         for (Student student :
                 studentArrayList) {
             if (student.grades >= 9){
