@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Train {
 
-    String destinationName;
-    int trainNumber;
-    String departureTime;
+    private String destinationName;
+    private int trainNumber;
+    private String departureTime;
 
     public Train(int trainNumber, String departureTime, String destinationName) {
         this.trainNumber = trainNumber;
@@ -14,31 +14,40 @@ public class Train {
         this.departureTime = departureTime;
     }
 
-    static ArrayList<Train> trainList = new ArrayList<>();
-    static Map<Integer, Train> mapTrain = new HashMap<Integer, Train>();
+    private ArrayList<Train> trainList = new ArrayList<>();
+    private Map<Integer, Train> mapTrain = new HashMap<>();
 
 
     public static void main(String[] args) {
-        trainList.add(new Train(0, "15.40", "Moscow"));
-        trainList.add(new Train(2, "12.20", "Hague"));
-        trainList.add(new Train(1, "00.40", "Vilnius"));
-        trainList.add(new Train(5, "10.40", "Vilnius"));
-        trainList.add(new Train(8, "11.40", "Moscow"));
-        sortByDestination();
-        System.out.println(mapTrain.toString());
+        Train train= new Train(0, "15.40", "Moscow");
+        train.trainList.add(new Train(0, "15.40", "Moscow"));
+        train.trainList.add(new Train(2, "12.20", "Hague"));
+        train.trainList.add(new Train(1, "00.40", "Vilnius"));
+        train.trainList.add(new Train(5, "10.40", "Vilnius"));
+        train.trainList.add(new Train(8, "11.40", "Moscow"));
+        train.sortByDestination();
+        System.out.println(train.mapTrain.toString());
+
+        final String name="1";
+        final StringBuilder builder=new StringBuilder();
+        builder.append("udshgfu");
     }
 
-    static void displayById(int id) {
+
+    public void displayById(int id) {
         System.out.println(String.format("number: %s, departure time: %s, destination name: %s", id, readTrainByNumber(id).departureTime, readTrainByNumber(id).destinationName));
     }
 
-    static boolean doNeedSwap2Words(String firstWord, String secondword) {
+
+    public boolean doNeedSwap2Words(String firstWord, String secondword) {
 
         for (int i = 0; i < Math.min(secondword.length(), firstWord.length()); i++) {
 
             if (firstWord.charAt(i) > secondword.charAt(i)) {
                 return true;
+
             }
+            
             if (firstWord.charAt(i) < secondword.charAt(i)) {
                 return false;
             }
@@ -47,11 +56,13 @@ public class Train {
     }
 
     //OFC It is possible just to use "mapTrain.get(number)", but it is easier just to call method with one letter and Tab
-    static Train readTrainByNumber(int number) {
+
+    public Train readTrainByNumber(int number) {
         return trainList.get(number);
     }
 
-    static void sortTrainsById() {
+
+    public void sortTrainsById() {
         for (int counter = 0; counter < trainList.size(); counter++) {
             mapTrain.put(readTrainByNumber(counter).trainNumber, readTrainByNumber(counter));
         }
@@ -60,26 +71,31 @@ public class Train {
         }
         mapTrain.clear();
     }
-    static void sortByDestination(){
-        boolean doNeedOneMoreCycle=true;
-            while (doNeedOneMoreCycle){
-                doNeedOneMoreCycle=false;
-                for (int counter = 0; counter < trainList.size()-1; counter++) {
-                    if (doNeedSwap2Words(readTrainByNumber(counter).destinationName,trainList.get(counter+1).destinationName)&&!readTrainByNumber(counter).equals(readTrainByNumber(counter).destinationName)){
+
+
+    public void sortByDestination() {
+        boolean doNeedOneMoreCycle = true;
+        while (doNeedOneMoreCycle) {
+            doNeedOneMoreCycle = false;
+            for (int counter = 0; counter < trainList.size() - 1; counter++) {
+                if (doNeedSwap2Words(readTrainByNumber(counter).destinationName, trainList.get(counter + 1).destinationName) && !readTrainByNumber(counter).equals(readTrainByNumber(counter).destinationName)) {
+                    swapTrains(counter);
+                    doNeedOneMoreCycle = true;
+                }
+
+                if (readTrainByNumber(counter).destinationName.equals(readTrainByNumber(counter).destinationName)) {
+                    if (doNeedSwap2Words(readTrainByNumber(counter).departureTime, readTrainByNumber(counter + 1).departureTime)) {
                         swapTrains(counter);
-                        doNeedOneMoreCycle= true;
-                    }
-                    if (readTrainByNumber(counter).destinationName.equals(readTrainByNumber(counter).destinationName)){
-                        if (doNeedSwap2Words(readTrainByNumber(counter).departureTime,readTrainByNumber(counter+1).departureTime)){
-                            swapTrains(counter);
-                        }
                     }
                 }
             }
+        }
     }
-    static void swapTrains(int number){
-        Train bufferedTrain= new Train(readTrainByNumber(number).trainNumber,readTrainByNumber(number).departureTime,readTrainByNumber(number).destinationName);
-        trainList.set(number,readTrainByNumber(number+1));
-        trainList.set(number+1,bufferedTrain);
+
+
+    public void swapTrains(int number) {
+        Train bufferedTrain = new Train(readTrainByNumber(number).trainNumber, readTrainByNumber(number).departureTime, readTrainByNumber(number).destinationName);
+        trainList.set(number, readTrainByNumber(number + 1));
+        trainList.set(number + 1, bufferedTrain);
     }
 }
